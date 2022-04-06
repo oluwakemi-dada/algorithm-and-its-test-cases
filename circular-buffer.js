@@ -7,7 +7,7 @@ class CircularBuffer {
   }
 
   write(value) {
-    if (value === null || value === undefined) return;
+    if (value === null || value === undefined) throw new NotValidBuffer();
     if (this.size >= this.buffer.length) throw new BufferFullError();
     else {
       this.buffer[this.next] = value;
@@ -29,7 +29,7 @@ class CircularBuffer {
   }
 
   forceWrite(value) {
-    if (value === null || value === undefined) return;
+    if (value === null || value === undefined) throw new NotValidBuffer();
     if (this.size < this.buffer.length) return this.write(value);
     else {
       this.buffer[this.first] = value;
@@ -48,7 +48,6 @@ class CircularBuffer {
   }
 
   print() {
-    console.log(this.buffer);
     return this.buffer;
   }
 }
@@ -72,23 +71,8 @@ export class BufferEmptyError extends Error {
 }
 
 export class NotValidBuffer extends Error {
-  constructor(message) {
-    super(message);
+  constructor() {
+    super('Invalid buffer! null or undefined not allowed');
     this.name = 'NotValidBuffer';
   }
 }
-
-// const cb = new CircularBuffer(5, 3);
-// // cb.write(10);
-// // cb.write(20);
-// // cb.write(30);
-// // cb.write(40);
-// // cb.write(50);
-// // cb.forceWrite(60);
-// // cb.read();
-// // cb.forceWrite(70);
-// // cb.forceWrite(80);
-// // cb.write(90);
-// // cb.clear();
-
-// cb.print();
