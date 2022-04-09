@@ -76,3 +76,5 @@ export class NotValidBuffer extends Error {
     this.name = 'NotValidBuffer';
   }
 }
+
+// https://exercism.org/tracks/javascript/exercises/circular-buffer/solutions/tirissou
